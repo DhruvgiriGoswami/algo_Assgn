@@ -1,7 +1,7 @@
 {
   "name": "assgn",
   "version": "1.0.0",
-  "homepage": "https://github.com/DhruvgiriGoswami.github.io/algo_Assgn",
+  "homepage": "https://dhruvgirigoswami.github.io/algo_Assgn",
   "dependencies": {
     "@tailwindcss/postcss": "^4.0.7",
     "date-fns": "^4.1.0"
