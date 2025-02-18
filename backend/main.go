@@ -66,7 +66,7 @@ func main() {
 func corsMiddleware(next http.Handler) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
         // Set CORS headers
-        w.Header().Set("Access-Control-Allow-Origin", "*") // Use specific domain in production
+        w.Header().Set("Access-Control-Allow-Origin", "https://dhruvgirigoswami.github.io") // Use specific domain in production
         w.Header().Set("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS")
         w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
 
