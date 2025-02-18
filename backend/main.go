@@ -6,6 +6,7 @@ import (
     "fmt"
     "log"
     "net/http"
+    "os"
     "time"
 
     "github.com/gorilla/mux"
@@ -24,12 +25,17 @@ type Holiday struct {
 var client *mongo.Client
 
 func main() {
-    // Connect to MongoDB
+    // Get MongoDB URI from env variable
+    mongoURI := os.Getenv("MONGO_URI")
+    if mongoURI == "" {
+        log.Fatal("MONGO_URI environment variable is not set")
+    }
+
     ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
     defer cancel()
 
     var err error
-    client, err = mongo.Connect(ctx, options.Client().ApplyURI("mongodb://localhost:27017"))
+    client, err = mongo.Connect(ctx, options.Client().ApplyURI(mongoURI))
     if err != nil {
         log.Fatal(err)
     }
@@ -37,21 +43,24 @@ func main() {
 
     // Create router and define endpoints
     router := mux.NewRouter()
-    router.Use(corsMiddleware) // Apply the CORS middleware
-
-    // Define your routes
+    router.Use(corsMiddleware)
     router.HandleFunc("/holidays", createHoliday).Methods("POST")
     router.HandleFunc("/holidays", getHolidays).Methods("GET")
     router.HandleFunc("/holidays/{id}", deleteHoliday).Methods("DELETE")
-
-    // Catch-all OPTIONS handler (optional but recommended)
     router.PathPrefix("/").Methods(http.MethodOptions).HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
         w.WriteHeader(http.StatusOK)
     })
 
-    fmt.Println("Server running on port 8080")
-    log.Fatal(http.ListenAndServe(":8080", router))
+    port := os.Getenv("PORT")
+    if port == "" {
+        port = "8080" // default port
+    }
+    fmt.Println("Server running on port", port)
+    log.Fatal(http.ListenAndServe(":"+port, router))
 }
+
+// corsMiddleware and the handler functions (createHoliday, getHolidays, deleteHoliday) remain unchanged...
+
 
 // corsMiddleware adds the necessary headers to allow CORS
 func corsMiddleware(next http.Handler) http.Handler {

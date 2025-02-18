@@ -1,20 +1,10 @@
 {
   "name": "assgn",
   "version": "1.0.0",
-  "homepage": "https://dhruvgirigoswami.github.io/algo_Assgn",
   "dependencies": {
     "@tailwindcss/postcss": "^4.0.7",
     "date-fns": "^4.1.0"
-  },
+  }
 
-
-"scripts": {
-  "predeploy": "npm run build",
-  "deploy": "gh-pages -d build",
-  "start": "react-scripts start",
-  "build": "react-scripts build",
-  "test": "react-scripts test",
-  "eject": "react-scripts eject"
-}
 
 }
