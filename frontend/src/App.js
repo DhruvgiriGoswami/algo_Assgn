@@ -27,7 +27,7 @@ function App() {
 
   const fetchHolidays = async () => {
     try {
-      const res = await fetch('http://localhost:8080/holidays');
+      const res = await fetch('https://algo-assgn.onrender.com/holidays');
       const data = await res.json();
       setHolidays(data || []);
     } catch (err) {
@@ -54,7 +54,7 @@ function App() {
     };
 
     try {
-      const res = await fetch('http://localhost:8080/holidays', {
+      const res = await fetch('https://algo-assgn.onrender.com/holidays', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(holidayData),
@@ -72,7 +72,7 @@ function App() {
 
   const deleteHoliday = async (id) => {
     try {
-      const res = await fetch(`http://localhost:8080/holidays/${id}`, {
+      const res = await fetch(`https://algo-assgn.onrender.com/holidays/${id}`, {
         method: 'DELETE',
       });
       if (res.ok) {
